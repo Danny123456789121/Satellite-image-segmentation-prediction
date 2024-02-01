@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, InputNumber, Slider } from 'antd';
+import { Button, Form, Input, InputNumber, Slider } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 interface InputFormProps {
   onCustomFinish: (values: Store) => void;
@@ -20,27 +20,34 @@ const InputForm: React.FC<InputFormProps> = ({ onCustomFinish }) => {
       <Form
         form={form}
         name="img-input-form"
-        labelCol={{ flex: '100px' }}
+        labelCol={{ flex: '150px' }}
         labelAlign="left"
         labelWrap
         wrapperCol={{ flex: 1 }}
         colon={false}
-        style={{ maxWidth: 350 }}
+        style={{ maxWidth: 500 }}
         onFinish={onFinish}
       >
+        <Form.Item
+          label="Google Static API key"
+          name="key"
+          rules={[{ required: true }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item
           label="Latitude"
           name="Latitude"
           rules={[{ required: true }]}
         >
-          <InputNumber controls={false} stringMode />
+          <InputNumber controls={false} style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item
           label="Longitude"
           name="Longitude"
           rules={[{ required: true }]}
         >
-          <InputNumber controls={false} stringMode />
+          <InputNumber controls={false} style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item label="Zoom" name="Zoom" rules={[{ required: true }]}>
           <Slider
