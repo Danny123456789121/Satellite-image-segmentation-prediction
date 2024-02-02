@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, InputNumber, Slider } from 'antd';
 import { Store } from 'antd/lib/form/interface';
+
 interface InputFormProps {
   onCustomFinish: (values: Store) => void;
 }
+
 const InputForm: React.FC<InputFormProps> = ({ onCustomFinish }) => {
   const [form] = Form.useForm();
+
+  // Fetch API key from local storage on component mount
+  useEffect(() => {
+    const storedApiKey = localStorage.getItem('googleApiKey');
+    if (storedApiKey) {
+      form.setFieldsValue({ key: storedApiKey });
+    }
+  }, [form]);
+
   async function onFinish() {
     try {
       const values = await form.validateFields();
+      // Save API key to local storage
+      localStorage.setItem('googleApiKey', values.key);
       onCustomFinish(values);
     } catch (error) {
       console.error('Error fetching image:', error);
