@@ -20,7 +20,6 @@ const InputForm: React.FC<InputFormProps> = ({ onCustomFinish }) => {
   async function onFinish() {
     try {
       const values = await form.validateFields();
-      // Save API key to local storage
       localStorage.setItem('googleApiKey', values.key);
       onCustomFinish(values);
     } catch (error) {
@@ -36,10 +35,10 @@ const InputForm: React.FC<InputFormProps> = ({ onCustomFinish }) => {
         labelCol={{ flex: '150px' }}
         labelAlign="left"
         labelWrap
-        wrapperCol={{ flex: 1 }}
         colon={false}
-        style={{ maxWidth: 500 }}
+        style={{ maxWidth: 600 }}
         onFinish={onFinish}
+        initialValues={{ Zoom: 16 }}
       >
         <Form.Item
           label="Google Static API key"
@@ -66,11 +65,11 @@ const InputForm: React.FC<InputFormProps> = ({ onCustomFinish }) => {
           <Slider
             min={1}
             max={20}
-            marks={{ 1: '1', 10: '10', 20: '20' } as Record<number, string>}
+            marks={{ 1: '1', 10: '10', 20: '20' }}
           />
         </Form.Item>
-        <Form.Item label=" ">
-          <Button type="primary" htmlType="submit">
+        <Form.Item label=" " >
+          <Button type="primary" htmlType="submit" >
             Submit
           </Button>
         </Form.Item>

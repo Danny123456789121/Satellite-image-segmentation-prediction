@@ -25,22 +25,21 @@ const App = () => {
       <Title level={1}>Satellite Image Segmentation Prediction</Title>
       <Divider />
       <Row gutter={[16, 16]} align="top" justify="space-between">
-        <Col xs={24} sm={12}>
+        <Col span={24} md={12}>
           <Title level={4}>1. Fetch Image for Prediction</Title>
           <Paragraph>
             To use this application, you must enter a Google Static API key, the
             latitude and longitude of the desired location. For the best
-            prediction, select a zoom level between 16-18.
+            prediction, select a zoom level between 16-19.
           </Paragraph>
           <InputForm onCustomFinish={onCustomFinish} />
         </Col>
         {imageURL && (
-          <Col xs={24} sm={12}>
+          <Col span={24} md={12}>
             <img
               src={imageURL}
-              width="512px"
-              height="512px"
-              style={{ border: '0px', borderRadius: '8px' }}
+              width="100%"
+              style={{ border: '0px', borderRadius: '8px', maxWidth: '512px'}}
               alt=""
             />
           </Col>
