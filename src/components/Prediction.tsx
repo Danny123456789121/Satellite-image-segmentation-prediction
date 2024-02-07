@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import React, { useState } from 'react';
+import { Button, Col, Flex, Row, Space } from 'antd';
+import Title from 'antd/lib/typography/Title';
 
 interface PredictionProps {
   imageFile: File;
@@ -10,10 +11,20 @@ interface PredictionResponse {
   mask: string;
   color_percentages: Record<string, number>;
 }
+
 const Prediction: React.FC<PredictionProps> = ({ imageFile }) => {
   const [loading, setLoading] = useState(false);
   const [predictionResponse, setPredictionResponse] =
     useState<PredictionResponse>();
+
+  const colorMap: Record<string, string> = {
+    Water: '#0000ff',
+    Land: '#ffff00',
+    Road: '#ff0000',
+    Building: '#00ff00',
+    Vegetation: '#00ffff',
+    Unlabeled: '#808080',
+  };
 
   async function fetchPrediction() {
     try {
@@ -35,34 +46,64 @@ const Prediction: React.FC<PredictionProps> = ({ imageFile }) => {
     }
   }
 
-  useEffect(() => {
-    console.log(predictionResponse);
-  }, [predictionResponse]);
-
   return (
     <>
-      <Button onClick={fetchPrediction} type="primary" loading={loading}>
-        {loading ? 'Predicting' : 'Predict'}
-      </Button>
-
-      {predictionResponse && (
-        <>
-          <img
-            src={`data:image/png;base64, ${predictionResponse.original_image}`}
-            alt="Original Image"
-          />
-          <img
-            src={`data:image/png;base64, ${predictionResponse.mask}`}
-            alt="Mask Image"
-          />
-          <div>
-            Color Percentages:{' '}
-            {JSON.stringify(predictionResponse.color_percentages)}
-          </div>
-        </>
-      )}
+      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Button onClick={fetchPrediction} type="primary" loading={loading}>
+          {loading ? 'Predicting' : 'Predict'}
+        </Button>
+        {predictionResponse && (
+          <Flex>
+            <img
+              src={`data:image/png;base64, ${predictionResponse.mask}`}
+              width={'100%'}
+              style={{
+                border: '0px',
+                borderRadius: '8px',
+                maxWidth: '512px',
+              }}
+              alt="Mask Image"
+            />
+            <Col span={12} style={{ paddingLeft: '20px' }}>
+              <Row align="top">
+                <Title level={5}> Color Percentages: </Title>{' '}
+              </Row>
+              {Object.entries(predictionResponse.color_percentages).map(
+                ([index, percentage]) => {
+                  const color = Object.keys(colorMap)[parseInt(index)];
+                  return (
+                    <Row key={index}>
+                      <div
+                        style={{
+                          backgroundColor: colorMap[color],
+                          width: '20px',
+                          height: '20px',
+                          marginRight: '8px',
+                          marginBottom: '8px',
+                          border: '0px',
+                          borderRadius: '4px',
+                        }}
+                      ></div>
+                      {color}: {percentage}%
+                    </Row>
+                  );
+                },
+              )}
+            </Col>
+          </Flex>
+        )}
+      </Space>
     </>
   );
 };
 
 export default Prediction;
+
+/*
+<img
+  src={`data:image/png;base64, ${predictionResponse.original_image}`}
+  width={'100%'}
+  style={{ border: '0px', borderRadius: '8px', maxWidth: '512px' }}
+  alt="Original Image"
+/>
+*/

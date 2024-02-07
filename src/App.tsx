@@ -24,7 +24,7 @@ const App = () => {
     <div style={{ padding: '20px' }}>
       <Title level={1}>Satellite Image Segmentation Prediction</Title>
       <Divider />
-      <Row gutter={[16, 16]} align="top" justify="space-between">
+      <Row gutter={16} align="top" justify="space-between">
         <Col span={24} md={12}>
           <Title level={4}>1. Fetch Image for Prediction</Title>
           <Paragraph>
@@ -39,23 +39,19 @@ const App = () => {
             <img
               src={imageURL}
               width="100%"
-              style={{ border: '0px', borderRadius: '8px', maxWidth: '512px'}}
+              style={{ border: '0px', borderRadius: '8px', maxWidth: '512px' }}
               alt=""
             />
           </Col>
         )}
       </Row>
-      <Row gutter={[16, 16]} align="top" justify="space-between">
-        <Col xs={24} sm={12}>
-          <Title level={4}>2. Generate prediction from Image</Title>
-          <Paragraph>
-            {!imageURL
-              ? 'Please fetch an Image first'
-              : 'Click the button below to generate a prediction from the image above'}
-          </Paragraph>
-          {imageFile && <Prediction imageFile={imageFile} />}
-        </Col>
-      </Row>
+      <Title level={4}>2. Generate prediction from Image</Title>
+      <Paragraph>
+        {!imageURL
+          ? 'Please fetch an Image first'
+          : 'Click the button below to generate a prediction from the image above'}
+      </Paragraph>
+      {imageFile && <Prediction imageFile={imageFile} />}
     </div>
   );
 };
