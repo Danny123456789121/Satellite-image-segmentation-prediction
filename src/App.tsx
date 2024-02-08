@@ -2,14 +2,14 @@ import InputForm from './components/InputForm.tsx';
 import { useState } from 'react';
 import { Store } from 'antd/lib/form/interface';
 import cropImage from './script/cropImage.ts';
-import { Col, Divider, Row } from 'antd';
+import { Col, Divider, Row, Image } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import Prediction from './components/Prediction.tsx';
 
 const App = () => {
   const [imageURL, setImageURL] = useState<string | undefined>();
-  const [imageFile, setimageFile] = useState<File | undefined>();
+  const [imageFile, setImageFile] = useState<File | undefined>();
   const onCustomFinish = async (values: Store) => {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/staticmap?center=${values.Latitude},${values.Longitude}&zoom=${values.Zoom}&size=2048x2048&maptype=satellite&key=${values.key}`,
@@ -17,7 +17,7 @@ const App = () => {
     let blob = await response.blob();
     blob = await cropImage(blob, 20);
     setImageURL(URL.createObjectURL(blob));
-    setimageFile(new File([blob], 'image.png', { type: blob.type }));
+    setImageFile(new File([blob], 'image.png', { type: blob.type }));
   };
 
   return (
@@ -36,11 +36,9 @@ const App = () => {
         </Col>
         {imageURL && (
           <Col span={24} md={12}>
-            <img
+            <Image
               src={imageURL}
-              width="100%"
               style={{ border: '0px', borderRadius: '8px', maxWidth: '512px' }}
-              alt=""
             />
           </Col>
         )}

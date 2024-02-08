@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Flex, Row, Space } from 'antd';
+import { Button, Col, Flex, Image, Row, Space } from 'antd';
 import Title from 'antd/lib/typography/Title';
 
 interface PredictionProps {
@@ -54,15 +54,9 @@ const Prediction: React.FC<PredictionProps> = ({ imageFile }) => {
         </Button>
         {predictionResponse && (
           <Flex>
-            <img
+            <Image
               src={`data:image/png;base64, ${predictionResponse.mask}`}
-              width={'100%'}
-              style={{
-                border: '0px',
-                borderRadius: '8px',
-                maxWidth: '512px',
-              }}
-              alt="Mask Image"
+              style={{ border: '0px', borderRadius: '8px', maxWidth: '512px' }}
             />
             <Col span={12} style={{ paddingLeft: '20px' }}>
               <Row align="top">
@@ -98,12 +92,3 @@ const Prediction: React.FC<PredictionProps> = ({ imageFile }) => {
 };
 
 export default Prediction;
-
-/*
-<img
-  src={`data:image/png;base64, ${predictionResponse.original_image}`}
-  width={'100%'}
-  style={{ border: '0px', borderRadius: '8px', maxWidth: '512px' }}
-  alt="Original Image"
-/>
-*/
