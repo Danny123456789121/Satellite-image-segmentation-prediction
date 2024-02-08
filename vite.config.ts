@@ -8,4 +8,8 @@ export default defineConfig({
     port: 3000,
   },
   base: '/sis-frontend/',
+  preview: {
+    host: true,
+    port: 5000,
+  },
 });
