@@ -5,6 +5,6 @@ services:
     container_name: sis-react-c
     image: sis-react-i
     build:
-      context: .
+      context: ..
     ports:
       - "5000:5000"
