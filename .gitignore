@@ -1,0 +1,5 @@
+# Ignore IDE files
+.idea/
+
+# Ignore Docker compose files
+docker-compose.yml
