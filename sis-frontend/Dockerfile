@@ -3,8 +3,12 @@ FROM node:20-alpine as build
 WORKDIR /app/react-sis
 COPY package*.json ./
 RUN npm install
-COPY .. .
+COPY . ./
 RUN npm run build
-EXPOSE 5000
-CMD ["npm", "run", "preview"]
+
+#step 2
+FROM nginx:stable-alpine
+COPY --from=build /app/react-sis/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 
