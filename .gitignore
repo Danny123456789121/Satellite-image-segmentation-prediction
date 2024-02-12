@@ -3,3 +3,4 @@
 
 # Ignore Docker compose files
 docker-compose.yml
+.env

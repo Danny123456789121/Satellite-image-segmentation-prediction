@@ -31,8 +31,8 @@ const Prediction: React.FC<PredictionProps> = ({ imageFile }) => {
       setLoading(true);
       const formData = new FormData();
       formData.append('file', imageFile);
-
-      const response = await fetch('http://localhost:8000/classify', {
+      const apiUrl = import.meta.env.DEV ? "http://localhost" : "http://172.31.27.80";
+      const response = await fetch(`${apiUrl}:8000/classify`, {
         method: 'POST',
         body: formData,
         mode: 'cors',
