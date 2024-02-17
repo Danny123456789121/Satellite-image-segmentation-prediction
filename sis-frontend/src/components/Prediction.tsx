@@ -31,7 +31,7 @@ const Prediction: React.FC<PredictionProps> = ({ imageFile }) => {
       setLoading(true);
       const formData = new FormData();
       formData.append('file', imageFile);
-      const apiUrl = import.meta.env.DEV ? "http://localhost" : "http://3.121.230.44";
+      const apiUrl = import.meta.env.DEV ? "http://localhost" : "http://sis-prediction.ddns.net";
       const response = await fetch(`${apiUrl}:8000/classify`, {
         method: 'POST',
         body: formData,
